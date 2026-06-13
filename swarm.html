@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HeatSync Motion-Path Swarm</title>
+<title>Motion-Path Swarm</title>
 <style>
   :root { color-scheme: dark; }
 
@@ -88,7 +88,7 @@
 
   <!-- Inlined logo, defined once as a <symbol> and reused by every particle. -->
   <svg width="0" height="0" aria-hidden="true" style="position:absolute">
-    <symbol id="heatsync" viewBox="0 0 70 70">
+    <symbol id="logo" viewBox="0 0 70 70">
       <g transform="translate(0,-982.36199)">
         <g transform="matrix(0.86002511,0,0,0.86002511,-56.652266,717.70508)">
           <g transform="matrix(0.40015142,0,0,0.40015142,53.705992,292.24286)">
@@ -156,7 +156,7 @@
     </symbol>
   </svg>
 
-  <p class="explainer"><span id="explainerText">This demo uses the CSS Motion Path feature to fly copies of the HeatSync Labs
+  <p class="explainer"><span id="explainerText">This demo uses the CSS Motion Path feature to fly copies of an SVG
     logo along invisible looping curves. Each particle rides its own offset-path
     and auto-rotates to face the direction it is travelling. The whole swarm is
     driven by pure CSS keyframes, with no JavaScript animation loop.</span></p>
@@ -226,8 +226,8 @@
       svg.style.opacity = rand(0.55, 1).toFixed(2);
 
       const use = document.createElementNS(SVG_NS, 'use');
-      use.setAttributeNS(XLINK, 'href', '#heatsync');
-      use.setAttribute('href', '#heatsync');
+      use.setAttributeNS(XLINK, 'href', '#logo');
+      use.setAttribute('href', '#logo');
       svg.appendChild(use);
       return svg;
     }
