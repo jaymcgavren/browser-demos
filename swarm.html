@@ -156,12 +156,10 @@
     </symbol>
   </svg>
 
-  <p class="explainer"><span id="explainerText">This demo uses the CSS Motion Path feature to fly dozens of copies of the
-    HeatSync Labs logo along invisible looping curves. Each particle follows its
-    own offset-path and auto-rotates to face the direction it is travelling, all
-    driven by pure CSS keyframes with no JavaScript animation loop. The big white
-    text behind the swarm is plain HTML, sized to fill the page, while the
-    particles drift freely on top.</span></p>
+  <p class="explainer"><span id="explainerText">This demo uses the CSS Motion Path feature to fly copies of the HeatSync Labs
+    logo along invisible looping curves. Each particle rides its own offset-path
+    and auto-rotates to face the direction it is travelling. The whole swarm is
+    driven by pure CSS keyframes, with no JavaScript animation loop.</span></p>
 
   <div class="swarm" id="swarm" aria-hidden="true"></div>
 
@@ -199,7 +197,7 @@
     }
 
     function makeParticle() {
-      const size = rand(26, 64);
+      const size = rand(80, 180);
       const w = window.innerWidth;
       const h = window.innerHeight;
 
@@ -237,8 +235,8 @@
     function buildSwarm() {
       swarm.replaceChildren();
       // Scale the count to the viewport area, within reason.
-      const count = Math.max(24, Math.min(70,
-        Math.round(window.innerWidth * window.innerHeight / 26000)));
+      const count = Math.max(8, Math.min(20,
+        Math.round(window.innerWidth * window.innerHeight / 120000)));
       const frag = document.createDocumentFragment();
       for (let i = 0; i < count; i++) frag.appendChild(makeParticle());
       swarm.appendChild(frag);
