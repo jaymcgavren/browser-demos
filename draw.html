@@ -57,7 +57,6 @@
   .bigLogo {
     width: 88vmin;
     height: 88vmin;
-    opacity: 0.55;                 /* semi-transparent so text shows through */
   }
 
   /* Every shape is reduced to an outline that draws itself. pathLength="1"
@@ -68,7 +67,7 @@
   .bigLogo circle {
     fill: none;
     stroke: #f99b0c;               /* brand orange line work */
-    stroke-width: 4;
+    stroke-width: 8;
     vector-effect: non-scaling-stroke;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -166,7 +165,7 @@
     </symbol>
   </svg>
 
-  <p class="explainer"><span id="explainerText">This demo traces a giant, semi-transparent SVG logo as though an invisible
+  <p class="explainer"><span id="explainerText">This demo traces a giant SVG logo as though an invisible
     pen were drawing it line by line. Every shape is outlined using the SVG
     stroke-dasharray and stroke-dashoffset properties, written as CSS rather than
     HTML attributes, so the strokes appear to grow and then erase. The whole
