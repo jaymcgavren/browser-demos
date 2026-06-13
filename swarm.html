@@ -22,6 +22,7 @@
     inset: 0;
     z-index: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 3vmin;
@@ -30,8 +31,16 @@
     font-size: 6.2vw;
     line-height: 1.12;
     letter-spacing: -0.01em;
-    text-wrap: balance;
+    text-align: center;
     user-select: none;
+  }
+
+  /* Force the text to wrap to the full available width so vertical height
+     (not single-line width) is what the auto-fit maximises against. */
+  #explainerText {
+    display: block;
+    width: 100%;
+    text-wrap: balance;
   }
 
   /* ---- The swarm layer sits on top of the text ---- */
@@ -147,14 +156,12 @@
     </symbol>
   </svg>
 
-  <p class="explainer">
-    This demo uses the CSS Motion Path feature to fly dozens of copies of the
+  <p class="explainer"><span id="explainerText">This demo uses the CSS Motion Path feature to fly dozens of copies of the
     HeatSync Labs logo along invisible looping curves. Each particle follows its
     own offset-path and auto-rotates to face the direction it is travelling, all
     driven by pure CSS keyframes with no JavaScript animation loop. The big white
     text behind the swarm is plain HTML, sized to fill the page, while the
-    particles drift freely on top.
-  </p>
+    particles drift freely on top.</span></p>
 
   <div class="swarm" id="swarm" aria-hidden="true"></div>
 
@@ -237,13 +244,48 @@
       swarm.appendChild(frag);
     }
 
+    // Pick the largest font size at which the full explanation still fits
+    // within the viewport (height is the binding constraint). Guarantees no
+    // clipping at any resolution, including fullscreen 1080p and 4K.
+    const explainer = document.querySelector('.explainer');
+    const textEl = document.getElementById('explainerText');
+    function fitText() {
+      const cs = getComputedStyle(explainer);
+      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+      const availW = explainer.clientWidth - padX;
+      const availH = explainer.clientHeight - padY;
+
+      // 1) Find the largest font size that fits, using a tight line-height so
+      //    we maximise glyph size before worrying about line spacing.
+      explainer.style.lineHeight = '1';
+      // The text is forced to width:100%, so it always wraps within availW;
+      // height is the only real constraint. (+1px tolerance guards against a
+      // stray over-wide word; sub-pixel width rounding must not gate the fit.)
+      let lo = 8, hi = availH;
+      for (let i = 0; i < 24; i++) {
+        const mid = (lo + hi) / 2;
+        explainer.style.fontSize = mid + 'px';
+        const r = textEl.getBoundingClientRect();
+        if (r.height <= availH && textEl.scrollWidth <= availW + 1) lo = mid;
+        else hi = mid;
+      }
+      explainer.style.fontSize = Math.floor(lo) + 'px';
+
+      // 2) Stretch line-height so the (discrete) lines spread to fill the
+      //    full height instead of leaving a vertical gap.
+      const h = textEl.getBoundingClientRect().height;        // at line-height 1
+      explainer.style.lineHeight = (Math.max(1, (availH / h) * 0.99)).toFixed(3);
+    }
+
+    fitText();
     buildSwarm();
 
-    // Rebuild paths on resize so loops stay on-screen (debounced).
+    // Refit text and rebuild paths on resize so both stay on-screen (debounced).
     let t;
     window.addEventListener('resize', () => {
       clearTimeout(t);
-      t = setTimeout(buildSwarm, 250);
+      t = setTimeout(() => { fitText(); buildSwarm(); }, 250);
     });
   </script>
 
