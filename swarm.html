@@ -249,33 +249,12 @@
     // clipping at any resolution, including fullscreen 1080p and 4K.
     const explainer = document.querySelector('.explainer');
     const textEl = document.getElementById('explainerText');
+    // Start at a large font and step down until the text fits the viewport.
     function fitText() {
-      const cs = getComputedStyle(explainer);
-      const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-      const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-      const availW = explainer.clientWidth - padX;
-      const availH = explainer.clientHeight - padY;
-
-      // 1) Find the largest font size that fits, using a tight line-height so
-      //    we maximise glyph size before worrying about line spacing.
-      explainer.style.lineHeight = '1';
-      // The text is forced to width:100%, so it always wraps within availW;
-      // height is the only real constraint. (+1px tolerance guards against a
-      // stray over-wide word; sub-pixel width rounding must not gate the fit.)
-      let lo = 8, hi = availH;
-      for (let i = 0; i < 24; i++) {
-        const mid = (lo + hi) / 2;
-        explainer.style.fontSize = mid + 'px';
-        const r = textEl.getBoundingClientRect();
-        if (r.height <= availH && textEl.scrollWidth <= availW + 1) lo = mid;
-        else hi = mid;
+      for (let size = 140; size > 10; size -= 2) {
+        explainer.style.fontSize = size + 'px';
+        if (explainer.scrollHeight <= window.innerHeight) break;
       }
-      explainer.style.fontSize = Math.floor(lo) + 'px';
-
-      // 2) Stretch line-height so the (discrete) lines spread to fill the
-      //    full height instead of leaving a vertical gap.
-      const h = textEl.getBoundingClientRect().height;        // at line-height 1
-      explainer.style.lineHeight = (Math.max(1, (availH / h) * 0.99)).toFixed(3);
     }
 
     fitText();
