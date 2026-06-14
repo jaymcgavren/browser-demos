@@ -31,17 +31,6 @@
     padding: 3vmin;
     color: #ffffff;
     font-weight: 800;
-    /* Size the text by viewport AREA (the geometric mean of width and
-       height), not by either axis alone. A long paragraph wraps to a
-       roughly constant fraction of the screen at any aspect ratio, so it
-       fills the view without the top/bottom lines spilling off-screen the
-       way a plain min(vw, vh) does. Pure CSS via sqrt(); 1px cancels the
-       units so sqrt() operates on a number and the result is a length.
-
-       The min(vw, vh) line is a fallback for engines (e.g. Firefox) that
-       reject viewport units inside sqrt() and would otherwise drop the
-       whole declaration: they use it, browsers that grok sqrt() override
-       it with the area-based size on the next line. */
     font-size: min(7.2vw, 11vh);
     line-height: 1.12;
     letter-spacing: -0.01em;
