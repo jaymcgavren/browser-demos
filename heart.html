@@ -54,10 +54,9 @@
     pointer-events: none;          /* never block the page */
   }
 
-  /* The whole logo scales in a lub-dub rhythm. Both the scale and the glow are
+  /* The whole logo scales in a rhythm. Both the scale and the glow are
      driven by the same CSS @keyframes rule with ease-in / ease-out timing, so
-     each beat snaps in and eases off the way a real heartbeat does. There is no
-     JavaScript animation loop — this is the effect the CodePen demonstrates. */
+     each beat snaps in and eases off. */
   .bigLogo {
     width: 80vmin;
     height: 80vmin;
@@ -69,9 +68,9 @@
 
   @keyframes heartbeat {
     0%   { transform: scale(1);    filter: drop-shadow(0 0 0      rgba(249,155,12,0)); }
-    14%  { transform: scale(1.13); filter: drop-shadow(0 0 4vmin  rgba(249,155,12,0.65)); }  /* lub */
+    14%  { transform: scale(1.13); filter: drop-shadow(0 0 4vmin  rgba(249,155,12,0.65)); }
     28%  { transform: scale(1);    filter: drop-shadow(0 0 1vmin  rgba(249,155,12,0.15)); }
-    42%  { transform: scale(1.13); filter: drop-shadow(0 0 4vmin  rgba(249,155,12,0.65)); }  /* dub */
+    42%  { transform: scale(1.13); filter: drop-shadow(0 0 4vmin  rgba(249,155,12,0.65)); }
     70%  { transform: scale(1);    filter: drop-shadow(0 0 0      rgba(249,155,12,0)); }
     100% { transform: scale(1);    filter: drop-shadow(0 0 0      rgba(249,155,12,0)); }       /* rest */
   }
@@ -83,14 +82,12 @@
 </head>
 <body>
 
-  <p class="explainer"><span id="explainerText">This demo makes a giant SVG logo pulse like a beating
-    heart, swelling and shrinking in a steady lub-dub rhythm. The motion comes
+  <p class="explainer"><span id="explainerText">This demo makes a giant SVG logo pulse. The motion comes
     entirely from a CSS @keyframes rule with ease-in and ease-out timing, so each
-    beat accelerates and then eases off the way a real heartbeat does. A soft glow
-    blooms in time with every pulse, and the whole loop runs on pure CSS with no
-    JavaScript animation loop.</span></p>
+    beat accelerates and then eases off. A soft glow
+    blooms in time with every pulse. The whole loop runs on pure CSS with no
+    JavaScript.</span></p>
 
-  <!-- The same logo artwork, kept in its natural colors, beats as a single unit. -->
   <div class="stage" aria-hidden="true">
     <svg class="bigLogo" id="bigLogo" viewBox="0 0 70 70">
       <g transform="translate(0,-982.36199)">
