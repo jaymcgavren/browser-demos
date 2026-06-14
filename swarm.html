@@ -16,10 +16,6 @@
     font-family: "Helvetica Neue", Arial, sans-serif;
   }
 
-  /* ---- Background explanation text: white, as large as we can make it ----
-     Sized purely in CSS: the smaller of a width- and a height-relative unit,
-     so the fixed three-sentence block fills the screen without clipping at any
-     resolution (1080p, 4K) or aspect ratio. */
   .explainer {
     position: fixed;
     inset: 0;
@@ -38,8 +34,6 @@
     user-select: none;
   }
 
-  /* Force the text to wrap to the full available width so vertical height
-     (not single-line width) is what the size maximises against. */
   #explainerText {
     display: block;
     width: 100%;
@@ -203,7 +197,7 @@
   <p class="explainer"><span id="explainerText">This demo uses the CSS Motion Path feature to fly copies of an SVG
     logo along invisible looping curves. Each particle rides its own offset-path
     and auto-rotates to face the direction it is travelling. The whole swarm is
-    driven by pure CSS keyframes, with no JavaScript animation loop.</span></p>
+    driven by pure CSS keyframes, with no JavaScript.</span></p>
 
   <div class="swarm" aria-hidden="true">
     <svg class="particle p1" viewBox="0 0 70 70"><use href="#logo"/></svg>
