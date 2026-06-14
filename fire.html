@@ -28,7 +28,7 @@
     padding: 3vmin;
     color: #ffffff;
     font-weight: 800;
-    font-size: 6.2vw;
+    font-size: min(5.2vw, 7.9vh);
     line-height: 1.12;
     letter-spacing: -0.01em;
     text-align: center;
@@ -169,27 +169,6 @@
     </svg>
   </div>
 
-  <script>
-    // ---- Auto-fit the explanation text (same approach as swarm.html). ----
-    // Pick the largest font at which the full explanation still fits the
-    // viewport height, guaranteeing no clipping at 1080p or 4K.
-    const explainer = document.querySelector('.explainer');
-    function fitText() {
-      for (let size = 140; size > 10; size -= 2) {
-        explainer.style.fontSize = size + 'px';
-        if (explainer.scrollHeight <= window.innerHeight) break;
-      }
-    }
-
-    fitText();
-
-    // Refit on resize (the logo is sized in vmin, so it needs no rebuild).
-    let t;
-    window.addEventListener('resize', () => {
-      clearTimeout(t);
-      t = setTimeout(fitText, 250);
-    });
-  </script>
 
 </body>
 </html>
